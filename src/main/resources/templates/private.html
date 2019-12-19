@@ -1,0 +1,17 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout::header(#{private.title})">
+  <title>Private</title>
+</head>
+
+<body>
+
+<div th:replace="layout::content(~{::h2},~{})">
+
+  <h2 th:text="#{private.title}">Home, sweet home</h2>
+
+</div>
+
+<div th:replace="layout:: footer"></div>
+</body>
+</html>

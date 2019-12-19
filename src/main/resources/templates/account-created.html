@@ -1,0 +1,20 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout::header(#{account.created.title})">
+  <title>Home</title>
+</head>
+
+<body>
+
+
+<div th:fragment="layout::[#content]" class="container">
+
+  <div class="alert alert-success" th:text="${#messages.msg('account.created', accountId)}" role="alert">
+    Se ha creado una nueva cuenta con id 36
+  </div>
+
+</div>
+
+<div th:replace="layout:: footer"></div>
+</body>
+</html>

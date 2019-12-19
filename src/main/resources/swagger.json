@@ -1,0 +1,345 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Version 2, with a lot of improvements!",
+    "version": "2.0",
+    "title": "REST API V2",
+    "termsOfService": "localhost"
+  },
+  "host": "localhost:8080",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "account",
+      "description": "Operations related to accounts"
+    },
+    {
+      "name": "cache-examples-controller",
+      "description": "Cache Examples Controller"
+    }
+  ],
+  "paths": {
+    "/api/public/2/cache/colours": {
+      "get": {
+        "tags": [
+          "cache-examples-controller"
+        ],
+        "summary": "Get colours",
+        "operationId": "getColoursUsingGET_1",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Access token not present, invalid or expired. Make sure you provide a valid token using the Bearer schema"
+          },
+          "403": {
+            "description": "Forbidden - The provided Access Token doesn't grant the client enough privileges"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/public/2/users/{userId}/accounts": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Get user accounts",
+        "description": "Retrieves the accounts for the given user. The authorization is performed as follows:bla bla bla bla bla",
+        "operationId": "getUserAccountsUsingGET_1",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "User id",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ApiAccount"
+              }
+            }
+          },
+          "401": {
+            "description": "Invalid or expired token"
+          },
+          "403": {
+            "description": "Forbidden - The provided Access Token doesn't grant the client enough privileges"
+          }
+        },
+        "security": [
+          {
+            "apiKey": []
+          }
+        ],
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "account"
+        ],
+        "summary": "Account creation",
+        "operationId": "createAccountUsingPOST_1",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "accountRequest",
+            "description": "accountRequest",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ApiAccountCreationRequest"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id de usuario",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiAccount"
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Access token not present, invalid or expired. Make sure you provide a valid token using the Bearer schema"
+          },
+          "403": {
+            "description": "Forbidden - The provided Access Token doesn't grant the client enough privileges"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/api/public/2/users/{userId}/accounts/{accountId}": {
+      "get": {
+        "tags": [
+          "account"
+        ],
+        "summary": "getAccount",
+        "operationId": "getAccountUsingGET_1",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "accountId",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ApiExtendedAccount"
+            }
+          },
+          "401": {
+            "description": "Unauthorized - Access token not present, invalid or expired. Make sure you provide a valid token using the Bearer schema"
+          },
+          "403": {
+            "description": "Forbidden - The provided Access Token doesn't grant the client enough privileges"
+          }
+        },
+        "deprecated": false
+      }
+    }
+  },
+  "securityDefinitions": {
+    "apiKey": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "ApiAccount": {
+      "type": "object",
+      "properties": {
+        "balance": {
+          "type": "number",
+          "format": "double"
+        },
+        "code": {
+          "type": "string"
+        },
+        "creationDate": {
+          "type": "string",
+          "example": "yyyy-MM-dd"
+        },
+        "description": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "SAVINGS",
+            "CHECKING"
+          ]
+        }
+      },
+      "title": "ApiAccount"
+    },
+    "ApiAccountCreationRequest": {
+      "type": "object",
+      "properties": {
+        "balance": {
+          "type": "number",
+          "format": "double"
+        },
+        "code": {
+          "type": "string"
+        },
+        "creation_date": {
+          "type": "string",
+          "example": "yyyy-MM-dd"
+        },
+        "description": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "SAVINGS",
+            "CHECKING"
+          ]
+        }
+      },
+      "title": "ApiAccountCreationRequest"
+    },
+    "ApiExtendedAccount": {
+      "type": "object",
+      "properties": {
+        "balance": {
+          "type": "number",
+          "format": "double"
+        },
+        "code": {
+          "type": "string"
+        },
+        "creationDate": {
+          "$ref": "#/definitions/Calendar"
+        },
+        "description": {
+          "type": "string"
+        },
+        "extendedInformation": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "SAVINGS",
+            "CHECKING"
+          ]
+        }
+      },
+      "title": "ApiExtendedAccount"
+    },
+    "Calendar": {
+      "type": "object",
+      "properties": {
+        "calendarType": {
+          "type": "string"
+        },
+        "firstDayOfWeek": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lenient": {
+          "type": "boolean"
+        },
+        "minimalDaysInFirstWeek": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "time": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "timeInMillis": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "timeZone": {
+          "$ref": "#/definitions/TimeZone"
+        },
+        "weekDateSupported": {
+          "type": "boolean"
+        },
+        "weekYear": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "weeksInWeekYear": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "Calendar"
+    },
+    "TimeZone": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string"
+        },
+        "dstsavings": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id": {
+          "type": "string"
+        },
+        "rawOffset": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "TimeZone"
+    }
+  }
+}

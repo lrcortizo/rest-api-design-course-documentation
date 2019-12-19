@@ -1,0 +1,27 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": ["balance","code","creationDate","description","id","kind"],
+    "properties": {
+      "balance": {
+        "type": "number"
+      },
+      "code": {
+        "type": "string"
+      },
+      "creationDate": {
+        "type": "string"
+      },
+      "description": {
+        "type": "string"
+      },
+      "id": {
+        "type": "number"
+      },
+      "kind": {
+        "type": "string"
+      }
+    }
+  }
+}
